@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.mortbay.jetty</groupId>
     <artifactId>jetty-jsp</artifactId>
-    <version>9.1.1.B60.25.p3-SNAPSHOT</version>
+    <version>20091019-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -91,7 +91,7 @@
             <configuration>
               <instructions>
                 <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
-                <Import-Package>!com.sun.appserv.*,!com.sun.common.util.*,!com.sun.el.*,!com.sun.enterprise.web.*,!com.sun.org.apache.commons.*,!org.apache.jasper.*,*</Import-Package>
+                <Import-Package>org.apache.tools.ant*;resolution:=optional,org.eclipse.jdt*;resolution:=optional,sun.*;resolution:=optional,com.sun.org.*;resolution:=optional,!com.sun.appserv.*,!com.sun.common.util.*,!com.sun.el.*,!com.sun.enterprise.web.*,!com.sun.org.apache.commons.*,!org.apache.jasper.*,*</Import-Package>
               </instructions>
             </configuration>
            </execution>
@@ -113,8 +113,8 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.eclipse.jdt</groupId>
-      <artifactId>core</artifactId>
+      <groupId>org.eclipse.jdt.core.compiler</groupId>
+      <artifactId>ecj</artifactId>
       <version>${eclipse-compiler-version}</version>
     </dependency>
     <dependency>
@@ -135,7 +135,7 @@
     </dependency>
   </dependencies>
   <properties>
-     <eclipse-compiler-version>3.1.1</eclipse-compiler-version>
+     <eclipse-compiler-version>3.5.1</eclipse-compiler-version>
   </properties>
 
 </project>
