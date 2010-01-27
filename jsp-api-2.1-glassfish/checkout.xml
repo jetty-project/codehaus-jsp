@@ -103,6 +103,7 @@
     <copy todir="${generated.resources}/javax/servlet/jsp/resources">
       <fileset dir="target/glassfish/servlet-api/src/jsr245/src/share/dtd">
         <exclude name="**/CVS/*"/>
+        <exclude name="**/jsp_2_0.xsd"/>
       </fileset>
     </copy>
 
