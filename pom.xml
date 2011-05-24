@@ -7,17 +7,16 @@
   <groupId>org.mortbay.jetty</groupId>
   <artifactId>jetty-jsp</artifactId>
   <packaging>pom</packaging>
-  <version>2.1.v2010mmdd-SNAPSHOT</version>
+  <version>2.2.2-b05</version>
   <modelVersion>4.0.0</modelVersion>
   <name>Jetty :: JSP Modules</name>
   <scm>
-    <connection>scm:svn:https://svn.codehaus.org/jetty/jsp/trunk</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/jetty/jsp/trunk</developerConnection>
-    <url>scm:svn:https://svn.codehaus.org/jetty/jsp/trunk</url>
+    <connection>scm:svn:https://svn.codehaus.org/jetty/jsp/branches/jsp-2.2</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/jetty/jsp/branches/jsp-2.2</developerConnection>
+    <url>scm:svn:https://svn.codehaus.org/jetty/jsp/branches/jsp-2.2</url>
   </scm>
   <modules>
-    <module>jsp-api-2.1-glassfish</module>
-    <module>jsp-2.1-glassfish</module>
+    <module>jsp-impl-2.2-glassfish</module>
   </modules>
   <build>
   <plugins>
@@ -30,14 +29,12 @@
   </plugins>
   </build>
   <properties>
-   <glassfish-tag-version>SJSAS-2_1_1-B31G-19_Oct_2009</glassfish-tag-version>
   </properties>
   <repositories>
     <repository>
       <id>dev.java.net</id>
       <name>Glassfish Repository</name>
-      <layout>legacy</layout>
-      <url>http://download.java.net/maven/1</url>
+      <url>http://download.java.net/maven/2</url>
       <snapshots><enabled>false</enabled></snapshots>
     </repository>
   </repositories>
