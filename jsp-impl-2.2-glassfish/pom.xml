@@ -5,14 +5,17 @@
     <parent>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-jsp</artifactId>
-        <version>2.2.2-b05</version>
+        <version>2.2.2.b05</version>
         <relativePath>../pom.xml</relativePath>    
     </parent>
     <artifactId>jsp-impl</artifactId>
-    <version>2.2.2-b05</version>
+    <version>2.2.2.b05</version>
     <packaging>jar</packaging>
     <name>Glassfish: JSP 2.2 implementation</name>
     <description>JSP 2.2 implementation from Glassfish</description>
+    <properties>
+        <bundle-symbolic-name>org.apache.jasper.glassfish</bundle-symbolic-name>
+    </properties>
     <licenses>
       <license>
         <name>CDDL 1.0</name>
@@ -79,6 +82,104 @@
                  </execution>
               </executions>
             </plugin -->
+       <!-- Build helper maven plugin sets the parsedVersion.osgiVersion property -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>set-osgi-version</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+           </plugin>
+           <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+                                <Bundle-DocURL>http://jsp.java.net/</Bundle-DocURL>
+                                <Bundle-Vendor>Glassfish Project</Bundle-Vendor>
+                                <Bundle-Documentation>Glassfish Project jsp-impl 2.2.2-b05 with the patch for JSP-21 applied</Bundle-Documentation>
+                                <Bundle-Classpath>.</Bundle-Classpath>
+                                <Import-Package>javax.el;version="2.2.0",
+ javax.servlet;version="3.0.0",
+ javax.servlet.descriptor;version="3.0.0",
+ javax.servlet.http;version="3.0.0",
+ javax.servlet.jsp;version="2.2.0",
+ javax.servlet.jsp.el;version="2.2.0",
+ javax.servlet.jsp.tagext;version="2.2.0",
+ javax.tools;resolution:=optional,
+ org.eclipse.jdt.core.compiler;resolution:=optional,
+ org.eclipse.jdt.internal.compiler;resolution:=optional,
+ org.eclipse.jdt.internal.compiler.classfmt;resolution:=optional,
+ org.eclipse.jdt.internal.compiler.env;resolution:=optional,
+ org.eclipse.jdt.internal.compiler.impl;resolution:=optional,
+ org.eclipse.jdt.internal.compiler.problem;resolution:=optional</Import-Package>
+                                <Export-Package>org.apache.jasper;version="2.2.2",
+ org.apache.jasper.compiler;version="2.2.2",
+ org.apache.jasper.compiler.tagplugin;version="2.2.2",
+ org.apache.jasper.runtime;version="2.2.2",
+ org.apache.jasper.security;version="2.2.2",
+ org.apache.jasper.servlet;version="2.2.2",
+ org.apache.jasper.tagplugins.jstl;version="2.2.2",
+ org.apache.jasper.util;version="2.2.2",
+ org.apache.jasper.xmlparser;version="2.2.2",
+ org.glassfish.jsp.api;version="2.2.2"</Export-Package>
+                                <_nouses>true</_nouses>
+                                <_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>
+                            </instructions>
+                         </configuration>
+                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+      <!-- source maven plugin creates the source bundle and adds manifest -->
+      <plugin>
+        <inherited>true</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifestEntries>
+                  <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                  <Bundle-Name>${project.name}</Bundle-Name>
+                  <Bundle-SymbolicName>${bundle-symbolic-name}.source</Bundle-SymbolicName>
+                  <Bundle-Vendor>Eclipse.org - Jetty</Bundle-Vendor>
+                  <Bundle-Version>${parsedVersion.osgiVersion}</Bundle-Version>
+                  <Eclipse-SourceBundle>${bundle-symbolic-name};version="${parsedVersion.osgiVersion}"</Eclipse-SourceBundle>
+                </manifestEntries>
+              </archive>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
         </plugins>
     </build>
     <dependencies>
