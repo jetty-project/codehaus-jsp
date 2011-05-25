@@ -32,7 +32,7 @@
   </properties>
    <profiles>
     <profile> 
-      <id>eclipse-release</id>
+      <id>nexus-release</id>
       <build>
         <plugins>
           <plugin>
